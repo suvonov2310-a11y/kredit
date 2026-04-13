@@ -5,6 +5,6 @@
     },
     "deploy": {
       "startCommand": "python manage.py migrate && gunicorn kredit_project.wsgi",
-      "restartPolicyType": "ON_FAILURE"
+      "runtime": "python-3.12"
     }
   }
