@@ -1,0 +1,1 @@
+"web: gunicorn kredit_project.wsgi" | Out-File -FilePath "Procfile" -Encoding ascii
