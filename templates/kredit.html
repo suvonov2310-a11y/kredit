@@ -3,209 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kredit Pro | Sherzod</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Sherzod | Kredit Pro 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
-            --primary: #4361ee;
-            --secondary: #3f37c9;
-            --accent: #4cc9f0;
-            --glass: rgba(255, 255, 255, 0.95);
+            --primary: #6366f1; /* Indigo */
+            --secondary: #4f46e5;
+            --bg: #0f172a; /* Dark Navy */
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
+
         body { 
-            background: #f8f9fc; 
+            background-color: var(--bg);
+            background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                              radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
+            color: #f8fafc;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #2b2d42;
+            min-height: 100vh;
         }
-        .hero { 
-            background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
-            color: white; 
-            padding: 100px 0; 
-            border-radius: 0 0 60px 60px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+
+        .hero-section {
+            padding: 80px 0 40px;
+            text-align: center;
         }
-        .card-custom {
-            background: var(--glass);
-            border: none;
-            border-radius: 35px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
-            padding: 40px;
-            margin-top: -50px;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .nav-pills .nav-link {
-            border-radius: 20px;
-            padding: 12px 30px;
-            font-weight: 700;
-            color: #4a4e69;
-            margin: 0 5px;
-        }
-        .nav-pills .nav-link.active {
-            background: var(--primary);
-            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
-        }
-        .btn-action {
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 18px;
+
+        .hero-title {
             font-weight: 800;
-            letter-spacing: 1px;
+            font-size: 3.5rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-pills {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 8px;
+            border-radius: 20px;
+            display: inline-flex;
+            margin-bottom: 40px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .nav-link {
+            color: #94a3b8 !important;
+            border-radius: 15px !important;
+            font-weight: 600;
+            padding: 10px 25px !important;
             transition: 0.3s;
         }
-        .btn-action:hover {
-            transform: scale(1.02);
-            background: var(--secondary);
-            color: white;
+
+        .nav-link.active {
+            background: var(--primary) !important;
+            color: white !important;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
         }
-        .score-box {
-            border-radius: 25px;
-            padding: 20px;
-            text-align: center;
-            background: #f1f3f9;
-        }
-        .badge-custom {
-            padding: 10px 20px;
+
+        .form-control, .form-select {
+            background: rgba(15, 23, 42, 0.6) !important;
+            border: 1px solid var(--glass-border) !important;
+            color: white !important;
             border-radius: 15px;
-            font-size: 0.9rem;
+            padding: 12px 20px;
         }
-        .footer-bar {
-            background: white;
-            padding: 20px;
-            border-top: 1px solid #eee;
+
+        .form-control:focus {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2) !important;
+        }
+
+        .btn-calculate {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 18px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: white;
+            transition: 0.4s;
+        }
+
+        .btn-calculate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .rate-badge {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 8px 20px;
+            border-radius: 100px;
+            color: #818cf8;
             font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+
+        .result-stat {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .table { color: #cbd5e1 !important; }
+        .table thead th { border-color: var(--glass-border); color: #94a3b8; font-weight: 600; }
+        .table td { border-color: var(--glass-border); padding: 15px; }
+
+        .bank-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 25px;
+            height: 100%;
+            transition: 0.3s;
+        }
+
+        .bank-card:hover {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: var(--primary);
         }
     </style>
 </head>
 <body>
 
-<div class="hero text-center">
-    <h1 class="display-4 fw-800">Kredit Pro AI</h1>
-    <p class="opacity-75">Iqtisodiy tahlil va aqlli maslahatchi</p>
-</div>
+<div class="container">
+    <div class="hero-section">
+        <div class="rate-badge mb-3">💰 1 USD = {{ usd_rate }} UZS</div>
+        <h1 class="hero-title">Kredit Pro AI</h1>
+        <p class="text-secondary fw-600">Markaziy Bank kurslari bilan integratsiyalashgan aqlli tizim</p>
+    </div>
 
-<div class="container mb-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="card-custom">
-                <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab">
-                    <li class="nav-item"><button class="nav-link active" onclick="switchTab('calc')">Kalkulyator</button></li>
-                    <li class="nav-item"><button class="nav-link" onclick="switchTab('score')">Skoring Testi</button></li>
-                    <li class="nav-item"><button class="nav-link" onclick="switchTab('banks')">Banklar</button></li>
-                </ul>
+    <div class="row justify-content-center pb-5">
+        <div class="col-lg-10 text-center">
+            
+            <ul class="nav nav-pills" id="pills-tab">
+                <li class="nav-item"><button class="nav-link active" onclick="switchTab('calc')">Kalkulyator</button></li>
+                <li class="nav-item"><button class="nav-link" onclick="switchTab('score')">AI Skoring</button></li>
+                <li class="nav-item"><button class="nav-link" onclick="switchTab('banks')">Hamkor Banklar</button></li>
+            </ul>
 
+            <div class="glass-card text-start">
+                
                 <div id="section-calc" class="tab-content">
-                    <div class="row">
-                        <div class="col-md-12 mb-4 text-center">
-                            <span class="badge-custom bg-info-subtle text-info">💰 MB kursi: 1$ = {{ usd_rate }} UZS</span>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <label class="form-label fw-bold">Summani kiriting (USD/UZS)</label>
-                            <div class="input-group input-group-lg">
-                                <input type="number" id="input_val" class="form-control border-end-0" oninput="liveConvert()" placeholder="0">
-                                <select id="currency" class="form-select border-start-0" onchange="liveConvert()" style="max-width: 100px;">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary small fw-bold">SUMMANI KIRITING</label>
+                            <div class="input-group">
+                                <input type="number" id="input_val" class="form-control" oninput="liveConvert()" placeholder="0.00">
+                                <select id="currency" class="form-select" style="max-width: 100px;" onchange="liveConvert()">
                                     <option value="uzs">UZS</option>
                                     <option value="usd">USD</option>
                                 </select>
                             </div>
-                            <small id="helper-text" class="text-primary fw-bold mt-2 d-block">0 so'm</small>
+                            <div id="helper-text" class="mt-2 text-primary small fw-bold">0 so'm</div>
                         </div>
-                        <div class="col-md-6 mb-4">
-                            <label class="form-label fw-bold">Yillik foiz (%)</label>
-                            <input type="number" id="foiz" class="form-control form-control-lg" placeholder="24">
+                        <div class="col-md-3">
+                            <label class="form-label text-secondary small fw-bold">FOIZ (%)</label>
+                            <input type="number" id="foiz" class="form-control" placeholder="24">
                         </div>
-                        <div class="col-md-12 mb-4">
-                            <label class="form-label fw-bold">Muddat</label>
-                            <div class="input-group input-group-lg">
+                        <div class="col-md-3">
+                            <label class="form-label text-secondary small fw-bold">MUDDAT</label>
+                            <div class="input-group">
                                 <input type="number" id="muddat" class="form-control" placeholder="0">
-                                <select id="muddat_turi" class="form-select" style="max-width: 120px;">
+                                <select id="muddat_turi" class="form-select" style="max-width: 90px;">
                                     <option value="yil">Yil</option>
                                     <option value="oy">Oy</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-action w-100" onclick="calculateStandard()">HISOBOTNI TAYYORLASH</button>
+
+                    <button class="btn btn-calculate w-100 mt-5" onclick="calculateStandard()">Hisobotni yaratish</button>
 
                     <div id="res-calc" class="d-none mt-5">
-                        <div id="pdf-area" class="p-4 bg-white rounded-4 border">
-                            <h4 class="fw-800 text-center mb-4">Kredit Tahlili</h4>
-                            <div class="row text-center">
-                                <div class="col-md-6 mb-3">
-                                    <div class="p-3 bg-light rounded-4">
-                                        <p class="text-muted mb-1">Oylik to'lov</p>
-                                        <h2 id="res-oylik" class="text-primary fw-800">0</h2>
+                        <div id="pdf-area">
+                            <div class="row g-3 mb-5">
+                                <div class="col-md-6">
+                                    <div class="result-stat">
+                                        <div class="stat-label">Oylik to'lov</div>
+                                        <div class="stat-value" id="res-oylik">0</div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="p-3 bg-light rounded-4">
-                                        <p class="text-muted mb-1">Jami to'lov</p>
-                                        <h2 id="res-jami" class="text-danger fw-800">0</h2>
+                                <div class="col-md-6">
+                                    <div class="result-stat">
+                                        <div class="stat-label">Jami qaytarish</div>
+                                        <div class="stat-value text-danger" id="res-jami">0</div>
                                     </div>
                                 </div>
                             </div>
-                            <table class="table table-hover mt-4">
-                                <thead class="table-dark">
-                                    <tr><th>Oy</th><th>Asosiy qarz</th><th>Foiz</th><th>Qoldiq</th></tr>
-                                </thead>
-                                <tbody id="table-body"></tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr><th>OY</th><th>ASOSIY QARZ</th><th>FOIZ TO'LOVI</th><th>QOLDIQ</th></tr>
+                                    </thead>
+                                    <tbody id="table-body"></tbody>
+                                </table>
+                            </div>
                         </div>
-                        <button class="btn btn-outline-danger w-100 mt-4 rounded-4" onclick="generatePDF()">📄 PDF Yuklab olish</button>
+                        <button class="btn btn-outline-light w-100 mt-4 rounded-4 py-3 fw-bold" onclick="generatePDF()">📄 PDF HISOBOTNI YUKLAB OLISH</button>
                     </div>
                 </div>
 
                 <div id="section-score" class="tab-content d-none">
-                    <h4 class="fw-800 text-center mb-4">Kredit olish ehtimolingizni biling</h4>
                     <div class="row g-4">
                         <div class="col-md-6">
-                            <label class="form-label">Oylik daromadingiz (so'mda)</label>
-                            <input type="number" id="score_income" class="form-control" placeholder="Masalan: 5000000">
+                            <label class="form-label text-secondary small fw-bold">OYLIK DAROMADINGIZ</label>
+                            <input type="number" id="score_income" class="form-control" placeholder="5 000 000">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Boshqa kreditlaringiz bormi?</label>
+                            <label class="form-label text-secondary small fw-bold">BOShQA QARZLAR</label>
                             <select id="score_debts" class="form-select">
-                                <option value="0">Yo'q</option>
-                                <option value="20">Ha, bitta</option>
-                                <option value="40">Ha, ko'p</option>
+                                <option value="0">Umuman yo'q</option>
+                                <option value="20">Kichik kreditlar bor</option>
+                                <option value="40">Mavjud qarzlar ko'p</option>
                             </select>
                         </div>
                         <div class="col-md-12">
-                            <label class="form-label">Rasmiy ish stajingiz</label>
+                            <label class="form-label text-secondary small fw-bold">ISh STAJINGIZ</label>
                             <select id="score_work" class="form-select">
-                                <option value="0">6 oydan kam</option>
+                                <option value="40">1 yildan ortiq</option>
                                 <option value="20">6 oy - 1 yil</option>
-                                <option value="40">1 yildan ko'p</option>
+                                <option value="0">6 oydan kam</option>
                             </select>
                         </div>
                     </div>
-                    <button class="btn btn-action w-100 mt-4" onclick="runScoring()">EHTIMOLNI HISOBLASH</button>
-                    
-                    <div id="res-score" class="d-none mt-4 text-center">
-                        <div class="score-box">
-                            <h5 class="text-muted">Sizning skoring natijangiz:</h5>
-                            <h1 id="score-percent" class="display-3 fw-800">0%</h1>
-                            <p id="score-msg" class="lead fw-bold"></p>
+                    <button class="btn btn-calculate w-100 mt-5" onclick="runScoring()">AI ANALIZINI BOSHLASH</button>
+                    <div id="res-score" class="d-none mt-5 text-center">
+                        <div class="p-5 rounded-5 border border-primary border-opacity-25 bg-primary bg-opacity-5">
+                            <div class="stat-label mb-2">Sizning ishonchlilik darajangiz</div>
+                            <h1 class="display-1 fw-800 mb-3" id="score-percent">0%</h1>
+                            <p id="score-msg" class="lead fw-600 text-info"></p>
                         </div>
                     </div>
                 </div>
 
                 <div id="section-banks" class="tab-content d-none">
-                    <div class="row">
+                    <div class="row g-4">
                         {% for bank in banklar %}
-                        <div class="col-md-6 mb-4">
-                            <div class="card p-4 rounded-4 border-0 shadow-sm h-100">
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <h5 class="fw-800">{{ bank.nomi }}</h5>
-                                    <span class="badge bg-primary rounded-pill">{{ bank.foiz }}%</span>
+                        <div class="col-md-6">
+                            <div class="bank-card">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <h4 class="fw-800 mb-0">{{ bank.nomi }}</h4>
+                                    <span class="badge bg-primary rounded-pill px-3">{{ bank.foiz }}%</span>
                                 </div>
-                                <hr>
-                                <p class="small"><span class="text-success fw-bold">✅ Foyda:</span> {{ bank.foyda }}</p>
-                                <p class="small"><span class="text-danger fw-bold">⚠️ Risk:</span> {{ bank.zarar }}</p>
-                                <button class="btn btn-sm btn-outline-primary mt-auto rounded-3" onclick="useBank('{{ bank.foiz }}')">Hisoblashda qo'llash</button>
+                                <div class="mb-2"><small class="text-success fw-bold">💎 FOYDA:</small> <p class="small text-secondary">{{ bank.foyda }}</p></div>
+                                <div class="mb-4"><small class="text-danger fw-bold">🔥 RISK:</small> <p class="small text-secondary">{{ bank.zarar }}</p></div>
+                                <button class="btn btn-sm btn-outline-primary w-100 rounded-3" onclick="useBank('{{ bank.foiz }}')">TANLASH</button>
                             </div>
                         </div>
                         {% endfor %}
@@ -215,10 +287,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="footer-bar text-center mt-5">
-    🚀 Sherzod | Kredit Pro 2026 | <span id="date-now"></span>
 </div>
 
 <script>
@@ -235,14 +303,9 @@
         let val = parseFloat(document.getElementById('input_val').value);
         let curr = document.getElementById('currency').value;
         let helper = document.getElementById('helper-text');
-        
-        if (!val) { helper.innerText = "0 so'm"; return; }
-        
+        if(!val) { helper.innerText = "0 so'm"; return; }
         let sum = (curr === 'usd') ? val * MB_RATE : val;
-        
-        if (sum >= 1000000000) helper.innerText = (sum / 1000000000).toFixed(1) + " mlrd so'm";
-        else if (sum >= 1000000) helper.innerText = (sum / 1000000).toFixed(1) + " mln so'm";
-        else helper.innerText = Math.round(sum).toLocaleString() + " so'm";
+        helper.innerText = Math.round(sum).toLocaleString() + " so'm";
     }
 
     function calculateStandard() {
@@ -252,18 +315,14 @@
         let f = parseFloat(document.getElementById('foiz').value);
         let m = parseInt(document.getElementById('muddat').value);
         let turi = document.getElementById('muddat_turi').value;
-
-        if (!p || !f || !m) { alert("Barcha ma'lumotlarni kiriting!"); return; }
-
+        if(!p || !f || !m) { alert("Barcha maydonlarni to'ldiring!"); return; }
         let n = (turi === 'yil') ? m * 12 : m;
         let r = f / 12 / 100;
         let oylik = p * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
         let jami = oylik * n;
-
         document.getElementById('res-calc').classList.remove('d-none');
         document.getElementById('res-oylik').innerText = Math.round(oylik).toLocaleString() + " so'm";
         document.getElementById('res-jami').innerText = Math.round(jami).toLocaleString() + " so'm";
-
         let tbody = document.getElementById('table-body');
         tbody.innerHTML = "";
         let bal = p;
@@ -276,39 +335,28 @@
     }
 
     function runScoring() {
-        let income = parseFloat(document.getElementById('score_income').value);
-        let debts = parseInt(document.getElementById('score_debts').value);
+        let inc = parseFloat(document.getElementById('score_income').value);
+        let debt = parseInt(document.getElementById('score_debts').value);
         let work = parseInt(document.getElementById('score_work').value);
-        
-        if (!income) { alert("Daromadingizni kiriting!"); return; }
-
-        let score = 100 - debts + work;
-        if (income < 2000000) score -= 30;
-        else if (income > 10000000) score += 10;
-        
+        if(!inc) { alert("Daromadni kiriting!"); return; }
+        let score = 60 - debt + work;
+        if(inc > 10000000) score += 20;
+        else if(inc > 5000000) score += 10;
         score = Math.min(100, Math.max(0, score));
-        
         document.getElementById('res-score').classList.remove('d-none');
         document.getElementById('score-percent').innerText = score + "%";
-        
-        let msg = "";
-        if (score > 80) { msg = "✅ Juda yuqori! Banklar sizga bajonidil kredit beradi."; document.getElementById('score-percent').className = "display-3 fw-800 text-success"; }
-        else if (score > 50) { msg = "⚠️ O'rtacha. Bank qo'shimcha hujjatlar so'rashi mumkin."; document.getElementById('score-percent').className = "display-3 fw-800 text-warning"; }
-        else { msg = "❌ Past ehtimol. Daromadni oshirish yoki qarzlarni yopish kerak."; document.getElementById('score-percent').className = "display-3 fw-800 text-danger"; }
-        document.getElementById('score-msg').innerText = msg;
+        document.getElementById('score-msg').innerText = score > 70 ? "Kredit chiqish ehtimoli juda yuqori!" : "Qo'shimcha kafillik talab qilinishi mumkin.";
     }
 
     function generatePDF() {
         const element = document.getElementById('pdf-area');
-        html2pdf().from(element).save('Sherzod_Kredit_Tahlili.pdf');
+        html2pdf().from(element).save('Sherzod_Kredit_Pro_Report.pdf');
     }
 
     function useBank(foiz) {
         switchTab('calc');
         document.getElementById('foiz').value = foiz;
     }
-
-    document.getElementById('date-now').innerText = new Date().toLocaleDateString();
 </script>
 
 </body>
