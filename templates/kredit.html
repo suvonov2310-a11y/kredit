@@ -3,171 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sherzod | Kredit Pro AI 2026</title>
+    <title>Kredit Pro AI | Sherzod</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        :root {
-            --primary: #6366f1;
-            --bg: #0f172a;
-            --glass: rgba(30, 41, 59, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.1);
-        }
-        body { 
-            background-color: var(--bg);
-            background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-                              radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
-            color: #f8fafc;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            min-height: 100vh;
-        }
-        .hero-title {
-            font-weight: 800; font-size: 3rem;
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 32px; padding: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-        .nav-pills {
-            background: rgba(15, 23, 42, 0.5); padding: 8px; border-radius: 20px;
-            border: 1px solid var(--glass-border); margin-bottom: 30px;
-        }
-        .nav-link {
-            color: #94a3b8 !important; border-radius: 15px !important;
-            font-weight: 600; padding: 10px 25px !important;
-        }
-        .nav-link.active {
-            background: var(--primary) !important; color: white !important;
-        }
-        .form-control, .form-select {
-            background: rgba(15, 23, 42, 0.6) !important;
-            border: 1px solid var(--glass-border) !important;
-            color: white !important; border-radius: 15px; padding: 12px;
-        }
-        .btn-calculate {
-            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-            border: none; border-radius: 15px; padding: 15px;
-            font-weight: 800; color: white; transition: 0.3s;
-        }
-        .btn-calculate:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4); }
-        .result-stat { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); border-radius: 20px; padding: 20px; text-align: center; }
-        .bank-card { background: rgba(30, 41, 59, 0.5); border: 1px solid var(--glass-border); border-radius: 20px; padding: 20px; height: 100%; transition: 0.3s; }
-        .bank-card:hover { border-color: var(--primary); }
+        :root { --primary: #6366f1; --bg: #0f172a; --glass: rgba(30, 41, 59, 0.7); --border: rgba(255, 255, 255, 0.1); }
+        body { background: var(--bg); color: white; font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; }
+        .glass-card { background: var(--glass); backdrop-filter: blur(15px); border: 1px solid var(--border); border-radius: 25px; padding: 30px; margin-top: 20px; }
+        .nav-pills .nav-link { color: #94a3b8; border-radius: 12px; font-weight: 600; margin: 0 5px; cursor: pointer; }
+        .nav-pills .nav-link.active { background: var(--primary) !important; color: white !important; }
+        .form-control, .form-select { background: rgba(15, 23, 42, 0.8) !important; border: 1px solid var(--border) !important; color: white !important; border-radius: 12px; }
+        .btn-main { background: linear-gradient(135deg, #6366f1, #a855f7); border: none; border-radius: 12px; padding: 12px; font-weight: 800; color: white; width: 100%; transition: 0.3s; }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3); }
+        .bank-card { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 20px; padding: 20px; transition: 0.3s; }
+        .d-none { display: none !important; }
     </style>
 </head>
 <body>
 
-<div class="container py-5">
-    <div class="text-center mb-5">
-        <div class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill fw-bold">
-            💰 1 USD = {{ usd_rate|default:"12850" }} UZS
-        </div>
-        <h1 class="hero-title">Kredit Pro AI</h1>
-        <p class="text-secondary">Iqtisodchi Sherzoddan moliya tahlili tizimi</p>
+<div class="container py-5 text-center">
+    <div class="mb-4">
+        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold">
+            💰 MB KURSI: 1$ = {{ usd_rate }} UZS
+        </span>
     </div>
+    <h1 class="fw-800 display-5 mb-4">Kredit Pro AI</h1>
+
+    <ul class="nav nav-pills justify-content-center mb-4">
+        <li class="nav-item"><a class="nav-link active" id="tab-calc" onclick="showTab('calc')">Kalkulyator</a></li>
+        <li class="nav-item"><a class="nav-link" id="tab-score" onclick="showTab('score')">AI Skoring</a></li>
+        <li class="nav-item"><a class="nav-link" id="tab-banks" onclick="showTab('banks')">Banklar</a></li>
+    </ul>
 
     <div class="row justify-content-center">
-        <div class="col-lg-10 text-center">
-            
-            <ul class="nav nav-pills d-inline-flex" id="pills-tab">
-                <li class="nav-item"><button class="nav-link active" id="btn-calc" onclick="switchTab('calc')">Kalkulyator</button></li>
-                <li class="nav-item"><button class="nav-link" id="btn-score" onclick="switchTab('score')">AI Skoring</button></li>
-                <li class="nav-item"><button class="nav-link" id="btn-banks" onclick="switchTab('banks')">Hamkor Banklar</button></li>
-            </ul>
-
+        <div class="col-lg-9">
             <div class="glass-card text-start">
                 
-                <div id="section-calc" class="tab-content">
-                    <div class="row g-4">
+                <div id="sec-calc" class="tab-content">
+                    <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label small fw-bold text-secondary">SUMMA</label>
+                            <label class="small fw-bold text-secondary mb-2 d-block">SUMMA</label>
                             <div class="input-group">
-                                <input type="number" id="input_val" class="form-control" oninput="liveConvert()" placeholder="0">
-                                <select id="currency" class="form-select" style="max-width: 100px;" onchange="liveConvert()">
+                                <input type="number" id="inp_val" class="form-control" oninput="convert()" placeholder="0">
+                                <select id="curr" class="form-select" style="max-width: 90px;" onchange="convert()">
                                     <option value="uzs">UZS</option>
                                     <option value="usd">USD</option>
                                 </select>
                             </div>
-                            <div id="helper-text" class="mt-2 text-primary small fw-bold">0 so'm</div>
+                            <small id="help" class="text-primary fw-bold mt-2 d-block">0 so'm</small>
                         </div>
-                        <div class="col-md-3">
-                            <label class="form-label small fw-bold text-secondary">FOIZ (%)</label>
-                            <input type="number" id="foiz" class="form-control" placeholder="24">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label small fw-bold text-secondary">MUDDAT</label>
-                            <div class="input-group">
-                                <input type="number" id="muddat" class="form-control" placeholder="0">
-                                <select id="muddat_turi" class="form-select" style="max-width: 90px;">
-                                    <option value="yil">Yil</option>
-                                    <option value="oy">Oy</option>
-                                </select>
-                            </div>
-                        </div>
+                        <div class="col-md-3"><label class="small fw-bold text-secondary mb-2 d-block">FOIZ (%)</label><input type="number" id="f_rate" class="form-control" placeholder="24"></div>
+                        <div class="col-md-3"><label class="small fw-bold text-secondary mb-2 d-block">MUDDAT (oy)</label><input type="number" id="m_period" class="form-control" placeholder="12"></div>
                     </div>
-                    <button class="btn btn-calculate w-100 mt-5" onclick="calculateStandard()">HISOBOTNI ChIQARISh</button>
+                    <button class="btn btn-main mt-4" onclick="calc()">HISOBOTNI YARATISH</button>
 
-                    <div id="res-calc" class="d-none mt-5">
-                        <div id="pdf-area">
-                            <div class="row g-3 mb-4">
-                                <div class="col-md-6"><div class="result-stat"><small class="text-secondary">OYLIK TO'LOV</small><h3 id="res-oylik" class="fw-bold mt-2">0</h3></div></div>
-                                <div class="col-md-6"><div class="result-stat"><small class="text-secondary">JAMI QAYTARISh</small><h3 id="res-jami" class="fw-bold mt-2 text-danger">0</h3></div></div>
+                    <div id="res-area" class="d-none mt-4 border-top pt-4">
+                        <div id="pdf-content">
+                            <div class="row text-center g-3 mb-4">
+                                <div class="col-6"><div class="p-3 bg-white bg-opacity-5 rounded-4"><small class="text-secondary">OYLIK TO'LOV</small><h4 id="out-m" class="fw-bold mb-0">0</h4></div></div>
+                                <div class="col-6"><div class="p-3 bg-white bg-opacity-5 rounded-4"><small class="text-secondary">JAMI TO'LOV</small><h4 id="out-t" class="fw-bold mb-0 text-danger">0</h4></div></div>
                             </div>
-                            <table class="table"><thead class="text-secondary"><tr><th>OY</th><th>ASOSIY</th><th>FOIZ</th><th>QOLDIQ</th></tr></thead><tbody id="table-body"></tbody></table>
+                            <table class="table table-dark table-sm small"><thead class="text-secondary"><tr><th>OY</th><th>QARZ</th><th>FOIZ</th><th>QOLDIQ</th></tr></thead><tbody id="t-body"></tbody></table>
                         </div>
-                        <button class="btn btn-outline-light w-100 mt-3 rounded-4" onclick="generatePDF()">📄 PDF Yuklab olish</button>
+                        <button class="btn btn-outline-light w-100 btn-sm mt-2" onclick="toPDF()">PDF YUKLASH</button>
                     </div>
                 </div>
 
-                <div id="section-score" class="tab-content d-none">
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold text-secondary">OYLIK DAROMAD (so'm)</label>
-                            <input type="number" id="score_income" class="form-control" placeholder="5 000 000">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold text-secondary">BOSHQA QARZLAR</label>
-                            <select id="score_debts" class="form-select">
-                                <option value="0">Yo'q</option>
-                                <option value="25">Kichik kreditlar bor</option>
-                                <option value="50">Qarzlar ko'p</option>
-                            </select>
-                        </div>
-                        <div class="col-md-12">
-                            <label class="form-label small fw-bold text-secondary">RASMIY ISH STAJI</label>
-                            <select id="score_work" class="form-select">
-                                <option value="30">1 yildan ko'p</option>
-                                <option value="15">6 oy - 1 yil</option>
-                                <option value="0">6 oydan kam</option>
-                            </select>
-                        </div>
+                <div id="sec-score" class="tab-content d-none">
+                    <div class="row g-3">
+                        <div class="col-md-6"><label class="small fw-bold text-secondary d-block mb-2">DAROMAD (so'm)</label><input type="number" id="s_inc" class="form-control" placeholder="5000000"></div>
+                        <div class="col-md-6"><label class="small fw-bold text-secondary d-block mb-2">QARZLAR</label><select id="s_debt" class="form-select"><option value="0">Yo'q</option><option value="20">Bor</option></select></div>
                     </div>
-                    <button class="btn btn-calculate w-100 mt-5" onclick="runScoring()">EHTIMOLLIKNI BILISH</button>
-                    <div id="res-score" class="d-none mt-5 text-center p-5 rounded-5 border border-primary border-opacity-10 bg-primary bg-opacity-5">
-                        <h5 class="text-secondary mb-3">Sizning ishonchlilik darajangiz:</h5>
-                        <h1 class="display-1 fw-bold mb-3" id="score-percent">0%</h1>
-                        <p id="score-msg" class="lead fw-bold"></p>
+                    <button class="btn btn-main mt-4" onclick="runScore()">ANALIZ QILISH</button>
+                    <div id="res-score" class="d-none mt-4 text-center p-4 bg-primary bg-opacity-10 rounded-4">
+                        <h1 class="display-3 fw-bold" id="s-per">0%</h1>
+                        <p id="s-msg" class="fw-bold"></p>
                     </div>
                 </div>
 
-                <div id="section-banks" class="tab-content d-none">
-                    <div class="row g-4">
+                <div id="sec-banks" class="tab-content d-none">
+                    <div class="row g-3">
                         {% for bank in banklar %}
                         <div class="col-md-6">
                             <div class="bank-card">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <h4 class="fw-bold">{{ bank.nomi }}</h4>
-                                    <span class="badge bg-primary">{{ bank.foiz }}%</span>
-                                </div>
-                                <p class="small text-success mb-1">✅ {{ bank.foyda }}</p>
-                                <p class="small text-danger mb-4">⚠️ {{ bank.zarar }}</p>
-                                <button class="btn btn-sm btn-outline-primary w-100 rounded-3" onclick="useBank('{{ bank.foiz }}')">TANLASH</button>
+                                <div class="d-flex justify-content-between mb-2"><h5 class="fw-bold mb-0">{{ bank.nomi }}</h5><span class="badge bg-primary">{{ bank.foiz }}%</span></div>
+                                <p class="small text-secondary mb-3">{{ bank.foyda|truncatechars:50 }}</p>
+                                <button class="btn btn-sm btn-outline-primary w-100" onclick="pick('{{ bank.foiz }}')">TANLASH</button>
                             </div>
                         </div>
                         {% endfor %}
@@ -180,77 +102,55 @@
 </div>
 
 <script>
-    const MB_RATE = {{ usd_rate|default:12850 }};
+    const RATE = {{ usd_rate|default:12850 }};
 
-    function switchTab(tab) {
-        // Hamma bo'limlarni yashirish
-        document.querySelectorAll('.tab-content').forEach(el => el.classList.add('d-none'));
-        // Faqat tanlanganni ochish
-        document.getElementById('section-' + tab).classList.remove('d-none');
-        // Tugmalarni yangilash
-        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-        document.getElementById('btn-' + tab).classList.add('active');
+    function showTab(t) {
+        document.querySelectorAll('.tab-content').forEach(s => s.classList.add('d-none'));
+        document.getElementById('sec-' + t).classList.remove('d-none');
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        document.getElementById('tab-' + t).classList.add('active');
     }
 
-    function liveConvert() {
-        let val = parseFloat(document.getElementById('input_val').value);
-        let curr = document.getElementById('currency').value;
-        let helper = document.getElementById('helper-text');
-        if(!val) { helper.innerText = "0 so'm"; return; }
-        let sum = (curr === 'usd') ? val * MB_RATE : val;
-        helper.innerText = Math.round(sum).toLocaleString() + " so'm";
+    function convert() {
+        let v = parseFloat(document.getElementById('inp_val').value) || 0;
+        let c = document.getElementById('curr').value;
+        let sum = (c === 'usd') ? v * RATE : v;
+        document.getElementById('help').innerText = Math.round(sum).toLocaleString() + " so'm";
     }
 
-    function calculateStandard() {
-        let val = parseFloat(document.getElementById('input_val').value);
-        let curr = document.getElementById('currency').value;
-        let p = (curr === 'usd') ? val * MB_RATE : val;
-        let f = parseFloat(document.getElementById('foiz').value);
-        let m = parseInt(document.getElementById('muddat').value);
-        let turi = document.getElementById('muddat_turi').value;
-        if(!p || !f || !m) { alert("Ma'lumotlarni to'ldiring!"); return; }
-        let n = (turi === 'yil') ? m * 12 : m;
+    function calc() {
+        let v = parseFloat(document.getElementById('inp_val').value) || 0;
+        let c = document.getElementById('curr').value;
+        let p = (c === 'usd') ? v * RATE : v;
+        let f = parseFloat(document.getElementById('f_rate').value) || 0;
+        let n = parseInt(document.getElementById('m_period').value) || 0;
+        if(!p || !f || !n) return alert("To'ldiring!");
+
         let r = f / 12 / 100;
-        let oylik = p * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-        let jami = oylik * n;
-        document.getElementById('res-calc').classList.remove('d-none');
-        document.getElementById('res-oylik').innerText = Math.round(oylik).toLocaleString() + " so'm";
-        document.getElementById('res-jami').innerText = Math.round(jami).toLocaleString() + " so'm";
-        let tbody = document.getElementById('table-body');
-        tbody.innerHTML = "";
-        let bal = p;
+        let m_pay = p * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        
+        document.getElementById('res-area').classList.remove('d-none');
+        document.getElementById('out-m').innerText = Math.round(m_pay).toLocaleString();
+        document.getElementById('out-t').innerText = Math.round(m_pay * n).toLocaleString();
+
+        let b = p, tb = document.getElementById('t-body'); tb.innerHTML = "";
         for(let i=1; i<=n; i++) {
-            let iM = bal * r; let pM = oylik - iM; bal -= pM;
-            tbody.innerHTML += `<tr><td>${i}</td><td>${Math.round(pM).toLocaleString()}</td><td>${Math.round(iM).toLocaleString()}</td><td>${Math.max(0, Math.round(bal)).toLocaleString()}</td></tr>`;
+            let i_m = b * r, p_m = m_pay - i_m; b -= p_m;
+            tb.innerHTML += `<tr><td>${i}</td><td>${Math.round(p_m).toLocaleString()}</td><td>${Math.round(i_m).toLocaleString()}</td><td>${Math.max(0,Math.round(b)).toLocaleString()}</td></tr>`;
         }
     }
 
-    function runScoring() {
-        let inc = parseFloat(document.getElementById('score_income').value);
-        let debt = parseInt(document.getElementById('score_debts').value);
-        let work = parseInt(document.getElementById('score_work').value);
-        if(!inc) { alert("Daromadni kiriting!"); return; }
-        let score = 50 - debt + work;
-        if(inc > 10000000) score += 20; else if(inc > 5000000) score += 10;
-        score = Math.min(100, Math.max(0, score));
+    function runScore() {
+        let inc = parseFloat(document.getElementById('s_inc').value) || 0;
+        let d = parseInt(document.getElementById('s_debt').value);
+        let res = (inc > 5000000) ? 85 - d : 45 - d;
         document.getElementById('res-score').classList.remove('d-none');
-        const scoreEl = document.getElementById('score-percent');
-        scoreEl.innerText = score + "%";
-        scoreEl.style.color = score > 70 ? "#10b981" : (score > 40 ? "#f59e0b" : "#ef4444");
-        document.getElementById('score-msg').innerText = score > 70 ? "Kredit chiqish ehtimoli yuqori!" : "Kafillik talab qilinishi mumkin.";
+        document.getElementById('s-per').innerText = res + "%";
+        document.getElementById('s-msg').innerText = res > 60 ? "Ehtimol yuqori!" : "Ehtimol past.";
     }
 
-    function generatePDF() {
-        const element = document.getElementById('pdf-area');
-        html2pdf().from(element).save('Sherzod_Kredit_Tahlili.pdf');
-    }
-
-    function useBank(foiz) {
-        switchTab('calc');
-        document.getElementById('foiz').value = foiz;
-        document.getElementById('foiz').focus();
-    }
+    function pick(f) { showTab('calc'); document.getElementById('f_rate').value = f; }
+    function toPDF() { html2pdf().from(document.getElementById('pdf-content')).save('Kredit_Report.pdf'); }
 </script>
-
 </body>
 </html>
