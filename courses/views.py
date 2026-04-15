@@ -3,23 +3,17 @@ from django.shortcuts import render
 from .models import Bank
 
 def kredit_page(request):
-    # Bazadan banklarni olish
     banklar = Bank.objects.all()
-    
-    # Markaziy Bank API'dan kursni olish (JSON formatda)
-    usd_rate = 12850.0  # Default qiymat
+    usd_rate = 12850.0
     try:
-        # MB kursi uchun rasmiy API
-        response = requests.get('https://cbu.uz/uz/arkhiv-kursov-valyut/json/USD/')
+        response = requests.get('https://cbu.uz/uz/arkhiv-kursov-valyut/json/USD/', timeout=5)
         data = response.json()
         if data:
             usd_rate = float(data[0]['Rate'])
-    except Exception as e:
-        print(f"API xatosi yuz berdi: {e}")
+    except:
+        pass
 
-    # HTML-ga yuboriladigan ma'lumotlar
-    context = {
-        'banklar': banklar,
-        'usd_rate': usd_rate,
-    }
-    return render(request, 'kredit.html', context)
+    return render(request, 'kredit.html', {
+        'banklar': banklar, 
+        'usd_rate': usd_rate
+    })
